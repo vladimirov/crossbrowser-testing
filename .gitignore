@@ -1,0 +1,6 @@
+local.properties
+.png
+.log
+test-screenshots
+*.yaml
+workspace.xml

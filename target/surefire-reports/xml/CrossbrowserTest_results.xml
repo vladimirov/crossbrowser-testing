@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="UI Tests [Chrome]"
+           tests="2"
+           failures="0"
+           errors="0"
+           skipped="2"
+           time="0.000">
+  <properties />
+  
+            <testcase name="logTestStart" time="0.0" classname="CrossbrowserTest">
+          <skipped />
+    </testcase>
+            <testcase name="testOpenUrl" time="0.0" classname="CrossbrowserTest">
+          <skipped />
+    </testcase>
+  
+  
+</testsuite>

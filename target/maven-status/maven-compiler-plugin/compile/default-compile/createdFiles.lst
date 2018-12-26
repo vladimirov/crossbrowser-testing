@@ -1,0 +1,10 @@
+pages\LoginPage.class
+appmanager\HelperBase$1.class
+appmanager\TestBase.class
+appmanager\ApplicationManager.class
+pages\FaviconPage.class
+pages\PageSpeedPage.class
+pages\SitePage.class
+appmanager\HelperBase.class
+appmanager\Appender.class
+pages\AdminPage.class
