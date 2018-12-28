@@ -12,7 +12,6 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.BrowserType;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.*;
@@ -31,10 +30,10 @@ import java.util.Properties;
 public class ApplicationManager {
     private WebDriver driver;
     private Logger logger = LoggerFactory.getLogger(HelperBase.class);
-    public final Properties properties;
+    private final Properties properties;
     private LoginPage loginPage;
     private SitePage sitePage;
-    private String browser;
+    public String browser;
     private PageSpeedPage pageSpeedPage;
     private AdminPage adminPage;
     private FaviconPage faviconPage;
@@ -55,30 +54,27 @@ public class ApplicationManager {
         properties = new Properties();
     }
 
-    public void init() throws IOException, GitLabApiException {
+    public void init() throws IOException {
         switch (browser) {
-            case "chrome": {
+            case BrowserType.CHROME: {
                 System.setProperty("webdriver.chrome.driver", "C:\\Windows\\chromedriver.exe");
                 ChromeOptions options = new ChromeOptions();
                 options.setCapability("webdriver.chrome.driver", true);
                 driver = new ChromeDriver(options);
                 break;
             }
-            case "firefox": {
+            case BrowserType.FIREFOX: {
                 System.setProperty("webdriver.gecko.driver", "C:\\Windows\\geckodriver.exe");
                 FirefoxOptions options = new FirefoxOptions();
-                options.setCapability("webdriver.gecko.driver", true);
+                options.setCapability("marionette", true);
                 driver = new FirefoxDriver(options);
                 break;
             }
-            case "ie":
+            case BrowserType.IE:
                 System.setProperty("webdriver.ie.driver", "C:\\Windows\\IEDriverServer.exe");
                 InternetExplorerOptions options = new InternetExplorerOptions();
                 options.setCapability("webdriver.ie.driver", true);
                 driver = new InternetExplorerDriver(options);
-//                DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
-//                capabilities.setCapability(InternetExplorerDriver.NATIVE_EVENTS, false);
-//                capabilities.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION, true);
                 break;
         }
         driver.manage().window().maximize();
@@ -194,19 +190,15 @@ public class ApplicationManager {
     public void addPostDb(String content) {
         logger.info("CREATING TEST POST IN DATABASE ");
         try {
-            // create a mysql database connection
             String myDriver = "com.mysql.cj.jdbc.Driver";
             Class.forName(myDriver);
             Connection conn = DriverManager
                     .getConnection(databaseUrl, databaseUser, databasePass);
-            // create a sql date object so we can use it in our INSERT statement
             Calendar calendar = Calendar.getInstance();
             Date date = new Date(calendar.getTime().getTime());
-            // the mysql insert statement
             String query = "insert into wp_posts " +
                     "(post_title, post_date, post_content, post_excerpt, to_ping, pinged, post_content_filtered, post_name) " +
                     "values (?, ?, ?, ?, ?, ?, ?, ?)";
-            // create the mysql insert prepared statement
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setString(1, postTitle);
             preparedStmt.setDate(2, date);
@@ -216,7 +208,6 @@ public class ApplicationManager {
             preparedStmt.setString(6, "");
             preparedStmt.setString(7, "");
             preparedStmt.setString(8, postTitle.toLowerCase().replaceAll(" ", "-"));
-            // execute the prepared statement
             preparedStmt.execute();
             conn.close();
         } catch (Exception e) {
