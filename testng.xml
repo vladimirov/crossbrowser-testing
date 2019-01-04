@@ -11,12 +11,14 @@
             <!--<class name="CrossbrowserTest"/>-->
         <!--</classes>-->
     <!--</test>-->
+
     <test name="UI Tests [Firefox]">
         <parameter name="browser" value="firefox"/>
         <classes>
             <class name="CrossbrowserTest"/>
         </classes>
     </test>
+
     <!--<test name="UI Tests [IE]">-->
         <!--<parameter name="selenium.browser" value="ie"/>-->
         <!--<parameter name="selenium.grid" value="http://localhost:4444/wd/hub"/>-->

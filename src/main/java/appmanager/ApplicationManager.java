@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import pages.*;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -33,7 +34,7 @@ public class ApplicationManager {
     private final Properties properties;
     private LoginPage loginPage;
     private SitePage sitePage;
-    public String browser;
+    //    public String browser;
     private PageSpeedPage pageSpeedPage;
     private AdminPage adminPage;
     private FaviconPage faviconPage;
@@ -49,28 +50,31 @@ public class ApplicationManager {
     public static String databaseUser;
     public static String databasePass;
 
-    public ApplicationManager(String browser) {
-        this.browser = browser;
+    //    public ApplicationManager(String browser) {
+//        this.browser = browser;
+//        properties = new Properties();
+//    }
+    public ApplicationManager() {
         properties = new Properties();
     }
 
-    public void init() throws IOException {
+    public void init(String browser) throws IOException {
         switch (browser) {
-            case BrowserType.CHROME: {
+            case "chrome": {
                 System.setProperty("webdriver.chrome.driver", "C:\\Windows\\chromedriver.exe");
                 ChromeOptions options = new ChromeOptions();
                 options.setCapability("webdriver.chrome.driver", true);
                 driver = new ChromeDriver(options);
                 break;
             }
-            case BrowserType.FIREFOX: {
+            case "firefox": {
                 System.setProperty("webdriver.gecko.driver", "C:\\Windows\\geckodriver.exe");
                 FirefoxOptions options = new FirefoxOptions();
                 options.setCapability("marionette", true);
                 driver = new FirefoxDriver(options);
                 break;
             }
-            case BrowserType.IE:
+            case "ie":
                 System.setProperty("webdriver.ie.driver", "C:\\Windows\\IEDriverServer.exe");
                 InternetExplorerOptions options = new InternetExplorerOptions();
                 options.setCapability("webdriver.ie.driver", true);
@@ -142,7 +146,8 @@ public class ApplicationManager {
         return faviconPage;
     }
 
-    public void uploadIssueWithDescriptionToGitlab(String issueTitle, String description, String label) throws GitLabApiException {
+    public void uploadIssueWithDescriptionToGitlab(String issueTitle, String description, String label) throws
+            GitLabApiException {
         logger.info("UPLOADING ISSUE TO GITLAB WITH DESCRIPTION");
         GitLabApi gitLabApi = new GitLabApi(gitlabHostUrl, gitlabApiToken);
         Project project = gitLabApi.getProjectApi().getProject(projectId);
@@ -160,7 +165,8 @@ public class ApplicationManager {
                 null);
     }
 
-    public void uploadIssueWithScreenshotToGitlab(String issueTitle, String screenshotName) throws GitLabApiException {
+    public void uploadIssueWithScreenshotToGitlab(String issueTitle, String screenshotName) throws
+            GitLabApiException {
         logger.info("UPLOADING ISSUE TO GITLAB WITH SCREENSHOT");
         GitLabApi gitLabApi = new GitLabApi(gitlabHostUrl, gitlabApiToken);
         Project project = gitLabApi.getProjectApi().getProject(projectId);
