@@ -7,4 +7,5 @@ pages\PageSpeedPage.class
 pages\SitePage.class
 appmanager\HelperBase.class
 appmanager\Appender.class
+appmanager\DriverFactory.class
 pages\AdminPage.class

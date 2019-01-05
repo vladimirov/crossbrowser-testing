@@ -15,14 +15,14 @@ public class TestBase {
     protected static final ApplicationManager app = new ApplicationManager();
     Logger logger = LoggerFactory.getLogger(TestBase.class);
 
-    @BeforeSuite
+    @BeforeTest
     @Parameters("browser")
     public void setUp(@Optional("") String browser, ITestContext context) throws Exception {
         app.init(browser);
         context.setAttribute("app", app);
     }
 
-    @AfterSuite(alwaysRun = true)
+    @AfterTest(alwaysRun = true)
     public void tearDown() {
         app.stop();
     }

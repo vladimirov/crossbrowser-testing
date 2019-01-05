@@ -8,6 +8,6 @@
   <properties />
   
   
-            <testcase name="testOpenUrl" time="2.183" classname="CrossbrowserTest" />
+            <testcase name="testOpenUrl" time="2.183" classname="CrossBrowserTest" />
       
 </testsuite>
