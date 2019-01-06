@@ -28,12 +28,11 @@ import java.util.Collections;
 import java.util.Properties;
 
 public class ApplicationManager {
-    private WebDriver driver;
+    public WebDriver driver;
     private Logger logger = LoggerFactory.getLogger(HelperBase.class);
     private final Properties properties;
     private LoginPage loginPage;
     private SitePage sitePage;
-    //    public String browser;
     private PageSpeedPage pageSpeedPage;
     private AdminPage adminPage;
     private FaviconPage faviconPage;
@@ -52,6 +51,7 @@ public class ApplicationManager {
     public ApplicationManager() {
         properties = new Properties();
     }
+
 
     public void init(String browser) throws IOException {
         driver = new EventFiringWebDriver(DriverFactory.initDriver(browser));
